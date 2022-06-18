@@ -1,22 +1,28 @@
 lockfileVersion: 5.4
 
 specifiers:
+  '@types/lodash': ^4.14.182
   '@types/node': 18.0.0
   '@types/react': 18.0.14
   '@types/react-dom': 18.0.5
   eslint: 8.18.0
   eslint-config-next: 12.1.6
+  lodash: ^4.17.21
   next: 12.1.6
   react: 18.2.0
   react-dom: 18.2.0
+  recoil: ^0.7.3
   typescript: 4.7.4
 
 dependencies:
+  lodash: 4.17.21
   next: 12.1.6_biqbaboplfbrettd7655fr4n2y
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
+  recoil: 0.7.3_biqbaboplfbrettd7655fr4n2y
 
 devDependencies:
+  '@types/lodash': 4.14.182
   '@types/node': 18.0.0
   '@types/react': 18.0.14
   '@types/react-dom': 18.0.5
@@ -209,6 +215,10 @@ packages:
 
   /@types/json5/0.0.29:
     resolution: {integrity: sha512-dRLjCWHYg4oaA77cxO64oO+7JwCwnIzkZPdrrC71jQmQtlhM556pwKo5bUzqvZndkVbeFLIIi+9TC40JNF5hNQ==}
+    dev: true
+
+  /@types/lodash/4.14.182:
+    resolution: {integrity: sha512-/THyiqyQAP9AfARo4pF+aCGcyiQ94tX/Is2I7HofNRqoYLgN1PBoOWu2/zTA5zMxzP5EFutMtWtGAFRKUe961Q==}
     dev: true
 
   /@types/node/18.0.0:
@@ -1022,6 +1032,10 @@ packages:
       slash: 3.0.0
     dev: true
 
+  /hamt_plus/1.0.2:
+    resolution: {integrity: sha512-t2JXKaehnMb9paaYA7J0BX8QQAY8lwfQ9Gjf4pg/mk4krt+cmwmU652HOoWonf+7+EQV97ARPMhhVgU1ra2GhA==}
+    dev: false
+
   /has-bigints/1.0.2:
     resolution: {integrity: sha512-tSvCKtBr9lkF0Ex0aQiP9N+OpV4zi2r/Nee5VkRDbaqv35RLYMzbwQfFSZZH0kR+Rd6302UJZ2p/bJCEoR3VoQ==}
     dev: true
@@ -1255,6 +1269,10 @@ packages:
   /lodash.merge/4.6.2:
     resolution: {integrity: sha512-0KpjqXRVvrYyCsX1swR/XTK0va6VQkQM6MNo7PqW77ByjAhoARA8EfrP1N4+KlKj8YS0ZUCtRT/YUuhyYDujIQ==}
     dev: true
+
+  /lodash/4.17.21:
+    resolution: {integrity: sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==}
+    dev: false
 
   /loose-envify/1.4.0:
     resolution: {integrity: sha512-lyuxPGr/Wfhrlem2CL/UcnUc1zcqKAImBDzukY7Y5F/yQiNdko6+fRLevlw1HgMySw7f611UIY408EtxRSoK3Q==}
@@ -1536,6 +1554,23 @@ packages:
     engines: {node: '>=0.10.0'}
     dependencies:
       loose-envify: 1.4.0
+
+  /recoil/0.7.3_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-WaPppk3Hz5/V9nOVmu1X/o3cJyf/rLXw/YsEENvMzEDk+LKqMiGfFgZ3Gg51TKWccpCZCyrSBXn2O4L1E2WDPQ==}
+    peerDependencies:
+      react: '>=16.13.1'
+      react-dom: '*'
+      react-native: '*'
+    peerDependenciesMeta:
+      react-dom:
+        optional: true
+      react-native:
+        optional: true
+    dependencies:
+      hamt_plus: 1.0.2
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+    dev: false
 
   /regenerator-runtime/0.13.9:
     resolution: {integrity: sha512-p3VT+cOEgxFsRRA9X4lkI1E+k2/CtnKtU4gcxyaCUreilL/vqI6CdZ3wxVUx3UOUg+gnUOQQcRI7BmSI656MYA==}
