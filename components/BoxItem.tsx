@@ -3,6 +3,7 @@ import { useCallback, useLayoutEffect, useRef } from "react";
 import Draggable, { DraggableEventHandler } from "react-draggable";
 import { useRecoilState } from "recoil";
 import { elementState, isSelectedState } from "../state/element";
+import { roundTo10 } from "../utils/round";
 
 const BoxItem = ({ id }: { id: string }) => {
     const ref = useRef<HTMLDivElement>(null);
@@ -26,7 +27,7 @@ const BoxItem = ({ id }: { id: string }) => {
         updateSize();
     }, [updateSize]);
 
-    const onStop: DraggableEventHandler = (_, position) => {
+    const updatePosition: DraggableEventHandler = (_, position) => {
         setElement((element) =>
             produce(element, (draft) => {
                 const rect = ref.current!.getBoundingClientRect();
@@ -38,14 +39,15 @@ const BoxItem = ({ id }: { id: string }) => {
     };
 
     return (
-        <Draggable nodeRef={ref} bounds="parent" onStop={onStop}>
+        <Draggable nodeRef={ref} bounds="parent" onDrag={updatePosition}>
             <div
                 ref={ref}
-                className="hover:cursor-move border-2 border-gray-300 rounded-lg p-2 inline-block"
+                className="hover:cursor-move box-border bg-lime-200 px-4 py-3 inline-block shadow-xl"
             >
                 <h1>
                     <input
                         type="checkbox"
+                        className="mr-2"
                         checked={isSelected}
                         onChange={() => setIsSelected(!isSelected)}
                     />

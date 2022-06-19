@@ -83,27 +83,33 @@ export const isSelectedState = selectorFamily<boolean, string>({
 export const outerboxState = selector<Omit<Element, "id"> | null>({
     key: "outerbox",
     get: ({ get }) => {
+        const padding = 10;
         const ids = get(selectedElementIds);
         if (ids.length === 0) return null;
         const elements = ids
             .map((id) => get(elementState(id)))
             .filter((e): e is Element => e !== null);
-        const left = Math.min(...elements.map((e) => e.position.left));
-        const top = Math.min(...elements.map((e) => e.position.top));
-        const right = Math.max(
-            ...elements.map((e) => e.position.left + e.size.width)
-        );
-        const bottom = Math.max(
-            ...elements.map((e) => e.position.top + e.size.height)
-        );
+        const left =
+            Math.min(...elements.map((e) => e.position.left)) - padding;
+        const top = Math.min(...elements.map((e) => e.position.top)) - padding;
+        const right =
+            Math.max(...elements.map((e) => e.position.left + e.size.width)) +
+            padding;
+        const bottom =
+            Math.max(...elements.map((e) => e.position.top + e.size.height)) +
+            padding;
+        const isTopEdge = top - padding < 0;
+        const isLeftEdge = left - padding < 0;
+        const fixedTop = isTopEdge ? 0 : top;
+        const fixedLeft = isLeftEdge ? 0 : left;
         return {
             position: {
-                left,
-                top,
+                left: fixedLeft,
+                top: fixedTop,
             },
             size: {
-                width: right - left,
-                height: bottom - top,
+                width: right - fixedLeft,
+                height: bottom - fixedTop,
             },
             label: "box",
         };

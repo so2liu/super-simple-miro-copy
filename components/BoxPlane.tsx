@@ -8,8 +8,8 @@ const BoxPlane = () => {
     const onAddElement = () => setElementIds((ids) => [...ids, nanoid()]);
 
     return (
-        <div className="h-full">
-            <div className="h-full bg-slate-500">
+        <div className="h-full box-border">
+            <div className="h-full bg-slate-500 box-border">
                 {elementIds.map((id) => (
                     <BoxItem key={id} id={id} />
                 ))}
