@@ -55,10 +55,12 @@ const BoxItem = ({ id }: { id: string }) => {
                     BoxItem
                 </h1>
                 <p>
-                    x: {element.position.left} y: {element.position.top}
+                    x: {element.position.left.toFixed(0)} y:{" "}
+                    {element.position.top}
                 </p>
                 <p>
-                    w: {element.size.width} h: {element.size.height}
+                    w: {element.size.width.toFixed(0)} h:{" "}
+                    {element.size.height.toFixed(0)}
                 </p>
             </div>
         </Draggable>

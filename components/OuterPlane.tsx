@@ -17,10 +17,12 @@ const OuterPlane = () => {
         >
             <div className="relative bottom-0 right-0">
                 <p>
-                    x: {outerBox.position.left} y: {outerBox.position.top}
+                    x: {outerBox.position.left.toFixed(0)} y:{" "}
+                    {outerBox.position.top.toFixed(0)}
                 </p>
                 <p>
-                    w: {outerBox.size.width} h: {outerBox.size.height}
+                    w: {outerBox.size.width.toFixed(0)} h:{" "}
+                    {outerBox.size.height.toFixed(0)}
                 </p>
             </div>
         </div>
