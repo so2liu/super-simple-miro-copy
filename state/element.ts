@@ -1,4 +1,4 @@
-import { atom, atomFamily, selectorFamily } from "recoil";
+import { atom, atomFamily, selector, selectorFamily } from "recoil";
 import { guardRecoilDefaultValue } from "./utils";
 import { uniq } from "lodash";
 
@@ -15,33 +15,44 @@ interface Element {
     label: string;
 }
 
-const elementIds = atom<Array<string>>({
+export const elementIdsState = atom<Array<string>>({
     key: "elementIds",
     default: [],
 });
 
-const elementState = atomFamily<Element | null, string>({
+const elementAtom = atomFamily<Element, string>({
     key: "elementState",
-    default: null,
+    default: {
+        id: "",
+        position: {
+            left: 0,
+            top: 0,
+        },
+        size: {
+            width: 100,
+            height: 100,
+        },
+        label: "untitled",
+    },
 });
 
-export const element = selectorFamily<Element | null, string>({
+export const elementState = selectorFamily<Element, string>({
     key: "elements",
     get:
         (id) =>
         ({ get }) => {
-            const atom = get(elementState(id));
+            const atom = get(elementAtom(id));
             return atom;
         },
     set:
         (id) =>
         ({ set, reset }, element) => {
             if (guardRecoilDefaultValue(element)) {
-                reset(elementState(id));
+                reset(elementAtom(id));
                 return;
             }
-            set(elementIds, (ids) => uniq([...ids, id]));
-            set(elementState(id), element);
+            set(elementIdsState, (ids) => uniq([...ids, id]));
+            set(elementAtom(id), element);
         },
 });
 
@@ -50,7 +61,7 @@ const selectedElementIds = atom<string[]>({
     default: [],
 });
 
-export const isSelected = selectorFamily<boolean, string>({
+export const isSelectedState = selectorFamily<boolean, string>({
     key: "isSelected",
     get:
         (id) =>
@@ -69,32 +80,32 @@ export const isSelected = selectorFamily<boolean, string>({
         },
 });
 
-export const outerbox = selectorFamily<Omit<Element, "id">, string[]>({
+export const outerboxState = selector<Omit<Element, "id"> | null>({
     key: "outerbox",
-    get:
-        (ids) =>
-        ({ get }) => {
-            const elements = ids
-                .map((id) => get(element(id)))
-                .filter((e): e is Element => e !== null);
-            const left = Math.min(...elements.map((e) => e.position.left));
-            const top = Math.min(...elements.map((e) => e.position.top));
-            const right = Math.max(
-                ...elements.map((e) => e.position.left + e.size.width)
-            );
-            const bottom = Math.max(
-                ...elements.map((e) => e.position.top + e.size.height)
-            );
-            return {
-                position: {
-                    left,
-                    top,
-                },
-                size: {
-                    width: right - left,
-                    height: bottom - top,
-                },
-                label: "box",
-            };
-        },
+    get: ({ get }) => {
+        const ids = get(selectedElementIds);
+        if (ids.length === 0) return null;
+        const elements = ids
+            .map((id) => get(elementState(id)))
+            .filter((e): e is Element => e !== null);
+        const left = Math.min(...elements.map((e) => e.position.left));
+        const top = Math.min(...elements.map((e) => e.position.top));
+        const right = Math.max(
+            ...elements.map((e) => e.position.left + e.size.width)
+        );
+        const bottom = Math.max(
+            ...elements.map((e) => e.position.top + e.size.height)
+        );
+        return {
+            position: {
+                left,
+                top,
+            },
+            size: {
+                width: right - left,
+                height: bottom - top,
+            },
+            label: "box",
+        };
+    },
 });
