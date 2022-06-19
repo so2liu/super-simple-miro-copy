@@ -50,6 +50,7 @@ const BoxItem = ({ id }: { id: string }) => {
                         className="mr-2"
                         checked={isSelected}
                         onChange={() => setIsSelected(!isSelected)}
+                        onTouchStart={() => setIsSelected(!isSelected)}
                     />
                     BoxItem
                 </h1>
