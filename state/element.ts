@@ -17,7 +17,7 @@ interface Element {
 
 export const elementIdsState = atom<Array<string>>({
     key: "elementIds",
-    default: [],
+    default: ["default-1", "default-2"],
 });
 
 const elementAtom = atomFamily<Element, string>({
